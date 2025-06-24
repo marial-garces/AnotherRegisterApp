@@ -2,7 +2,7 @@ package com.example.anotherregisterapp.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
-val Blue = Color(0xFF1DA1F2)
+val Blue = Color(0xFF2196F3)
 val LightBlue = Color(0xFF71C9F8)
 val DarkBlue = Color(0xFF1A91DA)
 val OnBlue = Color.White

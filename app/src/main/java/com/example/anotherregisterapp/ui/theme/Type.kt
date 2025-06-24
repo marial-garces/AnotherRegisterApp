@@ -21,8 +21,8 @@ val Typography = Typography(
     titleLarge = TextStyle(
         fontFamily = FontFamily(Font(R.font.spiegelsans_regular)),
         fontWeight = FontWeight.Normal,
-        fontSize = 22.sp,
-        lineHeight = 28.sp,
+        fontSize = 28.sp,
+        lineHeight = 30.sp,
         letterSpacing = 0.sp
     ),
 

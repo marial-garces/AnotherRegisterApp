@@ -33,7 +33,7 @@ fun NameCard(modifier: Modifier = Modifier) {
             .fillMaxWidth()
             .height(85.dp)
             .padding(horizontal = 16.dp, vertical = 4.dp),
-        colors = CardDefaults.cardColors(containerColor = Color(0xFFBAE1F6)),
+        colors = CardDefaults.cardColors(containerColor = Color(0xFF2196F3)),
         elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
     ) {
         Box(
@@ -47,10 +47,10 @@ fun NameCard(modifier: Modifier = Modifier) {
             ) {
                 // Icono/imagen izquierda
                 Image(
-                    painter = painterResource(id = R.drawable.profile),
+                    painter = painterResource(id = R.drawable.profile_blue),
                     contentDescription = "Profile Icon",
                     modifier = Modifier
-                        .size(40.dp)
+                        .size(60.dp)
                         .aspectRatio(1f)
                 )
 
@@ -65,17 +65,11 @@ fun NameCard(modifier: Modifier = Modifier) {
                     // Título principal
                     Text(
                         text = "María Garcés",
-                        fontSize = 16.sp,
+                        fontSize = 24.sp,
                         fontWeight = FontWeight.SemiBold,
-                        color = Color(0xFF1A1A1A)
+                        color = Color.White
                     )
-                    // Subtítulo
-                    Text(
-                        text = "m.garces@gmail.com",
-                        fontSize = 13.sp,
-                        color = Color(0xFF666666),
-                        modifier = Modifier.padding(top = 2.dp)
-                    )
+
                 }
 
             }

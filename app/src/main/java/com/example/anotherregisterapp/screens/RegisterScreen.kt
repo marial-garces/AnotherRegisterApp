@@ -20,6 +20,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
@@ -69,6 +70,7 @@ import com.example.anotherregisterapp.database.UserDatabaseDao
 import com.example.anotherregisterapp.database.UserRepository
 import com.example.anotherregisterapp.database.viewModels.AuthViewModel
 import com.example.anotherregisterapp.screens.design.AuthOptions
+import com.example.anotherregisterapp.screens.design.MyToggleButton
 
 @Composable
 fun RegisterScreen(navController: NavController) {
@@ -113,14 +115,14 @@ fun RegisterScreen(navController: NavController) {
         modifier = Modifier
             .fillMaxSize()
             .padding(20.dp)
-            .background(Color(0xFFCCC2DC)),
+            .background(Color(0xFF2196F3)),
         verticalArrangement = Arrangement.SpaceBetween,
 
     ) {
         Column {
 
             Image(
-                painter = painterResource( id = R.drawable.profile),
+                painter = painterResource( id = R.drawable.profile_blue),
                 contentDescription = null,
                 contentScale = ContentScale.FillHeight,
                 modifier = Modifier
@@ -136,16 +138,23 @@ fun RegisterScreen(navController: NavController) {
                 Card(
                     modifier = Modifier
                         .fillMaxSize(),
-                    shape = RoundedCornerShape(topStart = 24.dp, topEnd = 24.dp),
-                    colors = CardDefaults.cardColors(containerColor = Color(0xFFE2DBF1)),
+                    shape = RoundedCornerShape(topStart = 28.dp, topEnd = 28.dp),
+                    colors = CardDefaults.cardColors(containerColor = Color.White),
                     elevation = CardDefaults.cardElevation(defaultElevation = 8.dp)
                 ) {
                     Column(
                         modifier = Modifier
                             .fillMaxSize()
-                            .padding(top = 18.dp, bottom = 16.dp),
-                        verticalArrangement = Arrangement.spacedBy(2.dp)
+                            .padding(top = 36.dp, bottom = 16.dp),
+                        verticalArrangement = Arrangement.spacedBy(15.dp)
                     ) {
+
+                        Column(
+                            modifier = Modifier
+                                .padding(horizontal = 70.dp)
+                        ) {
+                            MyToggleButton()
+                        }
 
                         OutlinedTextField(
                             value = username.value,
@@ -158,7 +167,7 @@ fun RegisterScreen(navController: NavController) {
                             trailingIcon = { Icon(
                                 Icons.Outlined.AccountCircle,
                                 null,
-                                tint = Color(0xFF84838D)
+                                tint = Color(0xFF2196F3)
                             ) }
                         )
 
@@ -173,7 +182,7 @@ fun RegisterScreen(navController: NavController) {
                             trailingIcon = { Icon(
                                 Icons.Outlined.Mail,
                                 null,
-                                tint = Color(0xFF84838D)
+                                tint = Color(0xFF2196F3)
                             ) }
                         )
 
@@ -189,7 +198,7 @@ fun RegisterScreen(navController: NavController) {
                                     Icon(
                                         imageVector = if (showPassword) Icons.Outlined.VisibilityOff else Icons.Outlined.Visibility,
                                         contentDescription = null,
-                                        tint = Color(0xFF84838D)
+                                        tint = Color(0xFF2196F3)
                                     )
                                 }
                             },
@@ -203,7 +212,7 @@ fun RegisterScreen(navController: NavController) {
                                 .fillMaxWidth()
                                 .padding(vertical = 6.dp, horizontal = 10.dp),
                             colors = ButtonDefaults.buttonColors(
-                                containerColor = Color(0xFF6570cd)
+                                containerColor = Color(0xFF2196F3)
                             ),
                             onClick = {}
                         ) {
@@ -217,16 +226,18 @@ fun RegisterScreen(navController: NavController) {
                         }
 
 
-                        Row(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .align(CenterHorizontally),
-                            horizontalArrangement = Arrangement.spacedBy(6.dp),
+                        Column(modifier = Modifier.padding(start = 75.dp)) {
+                            Row(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .align(CenterHorizontally),
+                                horizontalArrangement = Arrangement.spacedBy(20.dp),
 
-                        ) {
-                            AuthOptions(image = R.drawable.google, tint = Color.Unspecified)
-                            AuthOptions(image = R.drawable.facebok, tint = Color.Unspecified)
-                            AuthOptions(image = R.drawable.apple, tint = Color.Unspecified)
+                                ) {
+                                AuthOptions(image = R.drawable.google, tint = Color.Unspecified)
+                                AuthOptions(image = R.drawable.facebok, tint = Color.Unspecified)
+                                AuthOptions(image = R.drawable.apple, tint = Color.Unspecified)
+                            }
                         }
 
                     }
@@ -239,84 +250,7 @@ fun RegisterScreen(navController: NavController) {
 
 }
 
-@Composable
-fun ToggleButton(
-    selectedTab: String = "Register",
-    onTabSelected: (String) -> Unit = {  }
-){
-    val isRegisterSelected = selectedTab == "Register"
 
-    Box(
-        modifier = Modifier
-            .width(210.dp)
-            .height(48.dp)
-            .background(color = Color.White, shape = RoundedCornerShape(24.dp))
-            .padding(4.dp)
-    ){
-        AnimatedVisibility(
-            visible = true,
-            modifier = Modifier.fillMaxSize()
-        ) {
-            Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .offset(
-                        x = animateDpAsState(
-                            targetValue = if (isRegisterSelected) 0.dp else 90.dp,
-                            animationSpec = tween(300)
-                        ).value
-                    )
-            ) {
-                Box(
-                    modifier = Modifier
-                        .width(110.dp)
-                        .fillMaxHeight()
-                        .background(
-                            color = Color(0xFF2196F3),
-                            shape = RoundedCornerShape(20.dp)
-                        )
-                )
-            }
-        }
-
-        Row(
-            modifier = Modifier.fillMaxSize(),
-            horizontalArrangement = Arrangement.SpaceEvenly
-        ) {
-            TextButton(
-                onClick = {onTabSelected("Register")},
-                modifier = Modifier
-                    .fillMaxHeight()
-                    .weight(1.5f),
-                colors = ButtonDefaults.textButtonColors(
-                    contentColor = if(isRegisterSelected) Color.White else Color.Gray
-                )
-            ) {
-                Text(
-                    text = "Register",
-                    fontSize = 14.sp,
-                    fontWeight = FontWeight.SemiBold,
-                )
-            }
-
-            TextButton(
-                onClick = {onTabSelected("Login")},
-                modifier = Modifier
-                    .fillMaxHeight()
-                    .weight(1.5f),
-                colors = ButtonDefaults.textButtonColors(
-                    contentColor = if(!isRegisterSelected) Color.White else Color.Gray
-                )
-            ) {
-                Text(
-                    text = "Login",
-                    fontSize = 14.sp,
-                    fontWeight = FontWeight.SemiBold,
-                )
-            }
-        }
-    }
-}
 
 
 @Preview
@@ -327,21 +261,5 @@ fun RegisterScreenPreview() {
     )
 }
 
-@Preview
-@Composable
-fun ToggleButtonPreview(){
-    var selectedTab by remember { mutableStateOf("Register") }
 
-    Column(
-        modifier = Modifier
-            .background(Color(0xFF2196F3))
-            .padding(16.dp),
-        verticalArrangement = Arrangement.Center
-    ) {
-        ToggleButton(
-            selectedTab = selectedTab,
-            onTabSelected = { selectedTab = it }
-        )
-    }
-}
 
