@@ -3,6 +3,7 @@ package com.example.anotherregisterapp.screens
 import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -28,6 +29,8 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -146,13 +149,18 @@ fun LoginContent(navController: NavController){
 
     Column(verticalArrangement = Arrangement.spacedBy(15.dp)) {
 
-        OutlinedTextField(
+        TextField(
             value = email.value,
             onValueChange = { email.value = it },
             label = { Text("Email") },
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 18.dp),
+                .padding(horizontal = 18.dp)
+                .border(
+                    width = 1.dp,
+                    color = Color(0xFF2196F3),
+                    shape = RoundedCornerShape(25.dp)
+                ),
             singleLine = true,
             trailingIcon = {
                 androidx.compose.material3.Icon(
@@ -160,14 +168,31 @@ fun LoginContent(navController: NavController){
                     null,
                     tint = Color(0xFF2196F3)
                 )
-            }
+            },
+            colors = TextFieldDefaults.colors(
+                focusedContainerColor = Color(0xFFF5F5F5),
+                unfocusedContainerColor = Color(0xFFF5F5F5),
+                disabledContainerColor = Color(0xFFF5F5F5),
+                focusedIndicatorColor = Color.Transparent,
+                unfocusedIndicatorColor = Color.Transparent,
+                disabledIndicatorColor = Color.Transparent,
+            ),
+            shape = RoundedCornerShape(25.dp)
         )
 
-        OutlinedTextField(
+        TextField(
             value = password.value,
             onValueChange = { password.value = it },
             label = { Text("Password") },
             singleLine = true,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 18.dp)
+                .border(
+                    width = 1.dp,
+                    color = Color(0xFF2196F3),
+                    shape = RoundedCornerShape(25.dp)
+                ),
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
             visualTransformation = if (showPassword) VisualTransformation.None else PasswordVisualTransformation(),
             trailingIcon = {
@@ -179,9 +204,15 @@ fun LoginContent(navController: NavController){
                     )
                 }
             },
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 18.dp)
+            colors = TextFieldDefaults.colors(
+                focusedContainerColor = Color(0xFFF5F5F5),
+                unfocusedContainerColor = Color(0xFFF5F5F5),
+                disabledContainerColor = Color(0xFFF5F5F5),
+                focusedIndicatorColor = Color.Transparent,
+                unfocusedIndicatorColor = Color.Transparent,
+                disabledIndicatorColor = Color.Transparent,
+            ),
+            shape = RoundedCornerShape(25.dp)
         )
 
         Row(
@@ -196,7 +227,7 @@ fun LoginContent(navController: NavController){
             Text(
                 text = "Remember me",
                 fontSize = 14.sp,
-                modifier = Modifier.padding(start = 8.dp, top = 4.dp),
+                modifier = Modifier.padding(start = 8.dp ),
                 color = Color(0xFF2196F3),
                 fontWeight = FontWeight.SemiBold
             )
@@ -299,41 +330,81 @@ fun RegisterContent(navController: NavController){
 
     Column(verticalArrangement = Arrangement.spacedBy(15.dp)){
 
-        OutlinedTextField(
+        TextField(
             value = username.value,
             onValueChange = { username.value = it },
             label = { Text("Username") },
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 18.dp),
+                .padding(horizontal = 18.dp)
+                .border(
+                    width = 1.dp,
+                    color = Color(0xFF2196F3),
+                    shape = RoundedCornerShape(25.dp)
+                ),
             singleLine = true,
-            trailingIcon = { Icon(
+            trailingIcon = {
+                Icon(
                 Icons.Outlined.AccountCircle,
                 null,
                 tint = Color(0xFF2196F3)
-            ) }
+                )
+            },
+            colors = TextFieldDefaults.colors(
+                focusedContainerColor = Color.White,
+                unfocusedContainerColor = Color.White,
+                disabledContainerColor = Color.White,
+                focusedIndicatorColor = Color.Transparent,
+                unfocusedIndicatorColor = Color.Transparent,
+                disabledIndicatorColor = Color.Transparent,
+            ),
+            shape = RoundedCornerShape(25.dp)
         )
 
-        OutlinedTextField(
+        TextField(
             value = email.value,
             onValueChange = { email.value = it },
             label = { Text("Email") },
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 18.dp),
+                .padding(horizontal = 18.dp)
+                .border(
+                    width = 1.dp,
+                    color = Color(0xFF2196F3),
+                    shape = RoundedCornerShape(25.dp)
+                ),
             singleLine = true,
-            trailingIcon = { Icon(
+            trailingIcon = {
+                Icon(
                 Icons.Outlined.Mail,
                 null,
                 tint = Color(0xFF2196F3)
-            ) }
+                )
+            },
+            colors = TextFieldDefaults.colors(
+                focusedContainerColor = Color.White,
+                unfocusedContainerColor = Color.White,
+                disabledContainerColor = Color.White,
+                focusedIndicatorColor = Color.Transparent,
+                unfocusedIndicatorColor = Color.Transparent,
+                disabledIndicatorColor = Color.Transparent,
+            ),
+            shape = RoundedCornerShape(25.dp)
         )
 
-        OutlinedTextField(
+        TextField(
             value = password.value,
             onValueChange = { password.value = it },
             label = { Text("Password") },
             singleLine = true,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 18.dp)
+                .border(
+                    width = 1.dp,
+                    color = Color(0xFF2196F3),
+                    shape = RoundedCornerShape(25.dp)
+                ),
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
             visualTransformation = if (showPassword) VisualTransformation.None else PasswordVisualTransformation(),
             trailingIcon = {
@@ -345,9 +416,16 @@ fun RegisterContent(navController: NavController){
                     )
                 }
             },
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 18.dp)
+            colors = TextFieldDefaults.colors(
+                focusedContainerColor = Color.White,
+                unfocusedContainerColor = Color.White,
+                disabledContainerColor = Color.White,
+                focusedIndicatorColor = Color.Transparent,
+                unfocusedIndicatorColor = Color.Transparent,
+                disabledIndicatorColor = Color.Transparent,
+            ),
+            shape = RoundedCornerShape(25.dp)
+
         )
         Button(
             modifier = Modifier

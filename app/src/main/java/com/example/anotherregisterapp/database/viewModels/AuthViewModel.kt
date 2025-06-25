@@ -16,6 +16,9 @@ class AuthViewModel (private val repo: UserRepository): ViewModel(){
     private val _registerResult = MutableLiveData<Result<Long>>()
     val registerResult: LiveData<Result<Long>> = _registerResult
 
+    private val _currentUser  = MutableLiveData<User?>()
+    val currentUser: LiveData<User?> = _currentUser
+
     fun login(email: String, password:String) = viewModelScope.launch {
         val user = repo.login(email, password)
         if(user != null) {
@@ -31,6 +34,17 @@ class AuthViewModel (private val repo: UserRepository): ViewModel(){
             _registerResult.postValue(Result.success(userId))
         } catch (e: Exception) {
             _registerResult.postValue(Result.failure(e))
+        }
+    }
+
+    fun getUserById(userId: Long) {
+        viewModelScope.launch {
+            try {
+                val user = repo.getUserById(userId)
+                _currentUser.postValue(user)
+            } catch (e: Exception) {
+                _currentUser.postValue(null)
+            }
         }
     }
 

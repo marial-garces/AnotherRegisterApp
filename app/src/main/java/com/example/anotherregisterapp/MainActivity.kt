@@ -28,13 +28,16 @@ class MainActivity : ComponentActivity() {
 
                 NavHost(
                     navController = navController,
-                    startDestination = LOGIN,
+                    startDestination = JOIN_US,
                     builder = {
                        composable(JOIN_US) { JoinUsScreen(navController = navController) }
 
                         composable(DASHBOARD) { DashboardScreen(navController = navController) }
 
-                        composable(PROFILE) { ProfileScreen(navController = navController) }
+                        composable("$PROFILE/{userId}") { backStackEntry ->
+                            val userId = backStackEntry.arguments?.getString("userId")?.toLongOrNull()
+                            ProfileScreen(navController = navController, userId = userId)
+                        }
 
 
 
