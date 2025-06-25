@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
@@ -36,22 +37,22 @@ import androidx.compose.ui.unit.sp
 
 @Composable
 fun MyToggleButton(
-    selectedTab: String = "Register",
+    selectedTab: String = "Login",
     onTabSelected: (String) -> Unit = {  }
 ){
-    val isRegisterSelected = selectedTab == "Register"
+    val isLoginSelected = selectedTab == "Login"
 
     Box(
         modifier = Modifier
-            .width(210.dp)
+            .fillMaxWidth()
             .height(48.dp)
             .border(
-                width = 2.dp,
+                width = 1.dp,
                 color = Color(0xFF2196F3),
-                shape = RoundedCornerShape(25.dp)
+                shape = RoundedCornerShape(24.dp)
             )
-            .background(color = Color.White, shape = RoundedCornerShape(24.dp))
-            .padding(4.dp),
+            .background(color = Color.White, shape = RoundedCornerShape(24.dp)),
+//            .padding(1.dp),
         contentAlignment = Alignment.Center
     ){
         AnimatedVisibility(
@@ -63,18 +64,18 @@ fun MyToggleButton(
                     .fillMaxSize()
                     .offset(
                         x = animateDpAsState(
-                            targetValue = if (isRegisterSelected) 0.dp else 90.dp,
+                            targetValue = if (isLoginSelected) 0.dp else 120.dp,
                             animationSpec = tween(300)
                         ).value
                     )
             ) {
                 Box(
                     modifier = Modifier
-                        .width(110.dp)
+                        .width(120.dp)
                         .fillMaxHeight()
                         .background(
                             color = Color(0xFF2196F3),
-                            shape = RoundedCornerShape(20.dp)
+                            shape = RoundedCornerShape(24.dp)
                         )
                 )
             }
@@ -85,32 +86,32 @@ fun MyToggleButton(
             horizontalArrangement = Arrangement.SpaceEvenly
         ) {
             TextButton(
-                onClick = {onTabSelected("Register")},
+                onClick = {onTabSelected("Login")},
                 modifier = Modifier
                     .fillMaxHeight()
-                    .weight(1.5f),
+                    .weight(1f),
                 colors = ButtonDefaults.textButtonColors(
-                    contentColor = if(isRegisterSelected) Color.White else Color.Gray
+                    contentColor = if(isLoginSelected) Color.White else Color.Gray
                 )
             ) {
                 Text(
-                    text = "Register",
+                    text = "Login",
                     fontSize = 14.sp,
                     fontWeight = FontWeight.SemiBold,
                 )
             }
 
             TextButton(
-                onClick = {onTabSelected("Login")},
+                onClick = {onTabSelected("Register")},
                 modifier = Modifier
                     .fillMaxHeight()
-                    .weight(1.5f),
+                    .weight(1f),
                 colors = ButtonDefaults.textButtonColors(
-                    contentColor = if(!isRegisterSelected) Color.White else Color.Gray
+                    contentColor = if(!isLoginSelected) Color.White else Color.Gray
                 )
             ) {
                 Text(
-                    text = "Login",
+                    text = "Register",
                     fontSize = 14.sp,
                     fontWeight = FontWeight.SemiBold,
                 )
@@ -123,7 +124,7 @@ fun MyToggleButton(
 @Preview
 @Composable
 fun ToggleButtonPreview(){
-    var selectedTab by remember { mutableStateOf("Register") }
+    var selectedTab by remember { mutableStateOf("Login") }
 
     Column(
         modifier = Modifier
