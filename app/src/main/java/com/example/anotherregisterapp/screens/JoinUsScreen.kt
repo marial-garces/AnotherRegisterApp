@@ -139,7 +139,7 @@ fun LoginContent(navController: NavController){
     loginResult.value?.let {result ->
         if (result.isSuccess) {
             val user = result.getOrNull()
-            navController.navigate("dashboard")
+            navController.navigate("dashboard/${user?.userId}")
         } else {
             Toast.makeText(context, "Login failed",
                 Toast.LENGTH_SHORT).show()
@@ -163,7 +163,7 @@ fun LoginContent(navController: NavController){
                 ),
             singleLine = true,
             trailingIcon = {
-                androidx.compose.material3.Icon(
+                Icon(
                     Icons.Outlined.Mail,
                     null,
                     tint = Color(0xFF2196F3)
@@ -197,7 +197,7 @@ fun LoginContent(navController: NavController){
             visualTransformation = if (showPassword) VisualTransformation.None else PasswordVisualTransformation(),
             trailingIcon = {
                 IconButton(onClick = { showPassword = !showPassword }) {
-                    androidx.compose.material3.Icon(
+                    Icon(
                         imageVector = if (showPassword) Icons.Outlined.VisibilityOff else Icons.Outlined.Visibility,
                         contentDescription = null,
                         tint = Color(0xFF2196F3)
@@ -255,7 +255,9 @@ fun LoginContent(navController: NavController){
             colors = ButtonDefaults.buttonColors(
                 containerColor = Color(0xFF2196F3)
             ),
-            onClick = {}
+            onClick = {
+                authVm.login(email.value, password.value)
+            }
         ) {
             Text(
                 text = "Log In",
