@@ -22,7 +22,6 @@ import com.example.anotherregisterapp.ui.theme.AnotherRegisterAppTheme
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContent {
             AnotherRegisterAppTheme {
                 val navController = rememberNavController()
@@ -32,7 +31,7 @@ class MainActivity : ComponentActivity() {
                     navController = navController,
                     startDestination = JOIN_US,
                     builder = {
-                       composable(JOIN_US) { JoinUsScreen(navController = navController) }
+                        composable(JOIN_US) { JoinUsScreen(navController = navController) }
 
                         composable(
                             route = "$DASHBOARD/{userId}",
@@ -63,4 +62,3 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
-

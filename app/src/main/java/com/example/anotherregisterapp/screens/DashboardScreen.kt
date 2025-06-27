@@ -27,6 +27,7 @@ import androidx.compose.material.icons.filled.People
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Share
 import androidx.compose.material.icons.filled.Star
+import androidx.compose.material.icons.outlined.AccountCircle
 import androidx.compose.material.icons.outlined.Folder
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -133,7 +134,7 @@ fun DashboardScreen(
             },
             containerColor = Color(0xFF2196F3),
 
-        ) { paddingValues ->
+            ) { paddingValues ->
 
             ScreenContent(paddingValues = paddingValues)
         }
@@ -191,86 +192,46 @@ fun ScreenContent(paddingValues: PaddingValues){
 @Composable
 fun DrawerContent(navController: NavController, currentUser: User?){
 
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp)
-        ) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(16.dp)
+    ) {
 
-            UserProfileHeader(user = currentUser)
+        UserProfileHeader(user = currentUser)
 
-            Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(16.dp))
 
-            DrawerMenuItem(
-                icon = Icons.Outlined.Folder,
-                text = "My Files",
-                backgroundColor = Color(0xFF6200EA),
-                onClick = {  }
-            )
-            
-            DrawerMenuItem(
-                icon = Icons.Default.Share,
-                text = "Shared with me",
-                onClick = {  }
-            )
+        DrawerMenuItem(
+            icon = Icons.Outlined.AccountCircle,
+            text = "Profile",
+            onClick = { navController.navigate(PROFILE) }
+        )
 
-            DrawerMenuItem(
-                icon = Icons.Default.Star,
-                text = "Starred",
-                onClick = {  }
-            )
+        DrawerMenuItem(
+            icon = Icons.Default.House,
+            text = "Home",
+            onClick = {  }
+        )
 
-            Spacer(modifier = Modifier.height(16.dp))
+        DrawerMenuItem(
+            icon = Icons.Outlined.Folder,
+            text = "My Files",
+            onClick = {  }
+        )
 
-            NavigationDrawerItem(
-                label = {
-                    Text(
-                        "Profile",
-                        fontSize = 16.sp,
-                        color = Color(0xFF555555),
-                        fontWeight = FontWeight.Medium
-                    )
-                },
-                selected = false,
-                onClick = { navController.navigate(PROFILE) },
-                icon = {
-                    Icon(
-                        Icons.Default.AccountCircle,
-                        contentDescription = "Profile",
-                        tint = Color(0xFF555555)
-                    )
-                },
-                colors = NavigationDrawerItemDefaults.colors(
-                    unselectedContainerColor = Color.Transparent
-                )
-            )
+        DrawerMenuItem(
+            icon = Icons.Default.Share,
+            text = "Shared with me",
+            onClick = {  }
+        )
 
-            NavigationDrawerItem(
-                label = {
-                    Text(
-                        "Home",
-                        fontSize = 16.sp,
-                        color = Color(0xFF555555),
-                        fontWeight = FontWeight.Medium
-                    )
-                },
-                selected = false,
-                onClick = {  },
-                icon = {
-                    Icon(
-                        Icons.Default.House,
-                        contentDescription = "Home",
-                        tint = Color(0xFF555555)
-                    )
-                },
-                colors = NavigationDrawerItemDefaults.colors(
-                    unselectedContainerColor = Color.Transparent
-                )
-            )
-
-
-
-        }
+        DrawerMenuItem(
+            icon = Icons.Default.Star,
+            text = "Starred",
+            onClick = {  }
+        )
+    }
 }
 
 
@@ -287,14 +248,14 @@ fun UserProfileHeader(user: User?){
             modifier = Modifier
                 .size(56.dp)
                 .clip(CircleShape)
-                .background(Color(0xFFE0E0E0)),
+                .background(Color(0xFF2196F3)),
             contentAlignment = Alignment.Center
         ){
             Icon(
                 imageVector = Icons.Default.Person,
                 contentDescription = "Profile Picture",
                 modifier = Modifier.size(36.dp),
-                tint = Color(0xFF757575)
+                tint = Color.White
             )
         }
 
