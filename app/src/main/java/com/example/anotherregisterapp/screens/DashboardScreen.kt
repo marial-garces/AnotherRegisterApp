@@ -350,23 +350,13 @@ fun TopBar(
             )
         },
         title = {
-            Column(
+            Row(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(top = 12.dp),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center
             ) {
                 Text(
-                    text = "Welcome,",
-                    fontWeight = FontWeight.SemiBold,
-                    modifier = Modifier.fillMaxWidth(),
-                    textAlign = TextAlign.Center,
-                    fontSize = 16.sp,
-                    color = Color.White
-                )
-                Text(
-                    text = "${userName}!",
+                    text = "Hello, ${userName}!",
                     fontWeight = FontWeight.SemiBold,
                     modifier = Modifier.fillMaxWidth(),
                     textAlign = TextAlign.Center,

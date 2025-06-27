@@ -54,6 +54,7 @@ import com.example.anotherregisterapp.database.User
 import com.example.anotherregisterapp.database.UserDatabase
 import com.example.anotherregisterapp.database.UserRepository
 import com.example.anotherregisterapp.database.viewModels.AuthViewModel
+import com.example.anotherregisterapp.database.viewModels.UserManager
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -67,7 +68,7 @@ fun ProfileScreen(navController: NavController, userId: Long? = null){
         factory = AuthViewModel.Factory(repo)
     )
 
-    val currentUser by authVm.currentUser.observeAsState()
+    val currentUser = UserManager.currentUser
 
     LaunchedEffect(userId) {
         userId?.let {

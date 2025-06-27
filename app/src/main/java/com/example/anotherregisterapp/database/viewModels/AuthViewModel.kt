@@ -37,14 +37,10 @@ class AuthViewModel (private val repo: UserRepository): ViewModel(){
         }
     }
 
-    fun getUserById(userId: Long) {
+    fun loadById(userId: Long) {
         viewModelScope.launch {
-            try {
-                val user = repo.getUserById(userId)
-                _currentUser.postValue(user)
-            } catch (e: Exception) {
-                _currentUser.postValue(null)
-            }
+            val user = repo.getUserById(userId)
+            _currentUser.postValue(user)
         }
     }
 
