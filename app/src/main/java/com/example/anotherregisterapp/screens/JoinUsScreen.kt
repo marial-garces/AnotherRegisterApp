@@ -25,6 +25,7 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Checkbox
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedTextField
@@ -54,6 +55,7 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.anotherregisterapp.R
+import com.example.anotherregisterapp.Routes.JOIN_US
 import com.example.anotherregisterapp.Routes.LOGIN
 import com.example.anotherregisterapp.database.UserDatabase
 import com.example.anotherregisterapp.database.UserRepository
@@ -66,7 +68,9 @@ fun JoinUsScreen(navController: NavController) {
     var selectedTab by remember { mutableStateOf("Login") }
 
     Column(
-        modifier = Modifier.fillMaxSize().background(Color(0xFF2196F3)),
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color(0xFF2196F3)),
         verticalArrangement = Arrangement.SpaceBetween,
     ) {
         Column {
@@ -133,16 +137,21 @@ fun LoginContent(navController: NavController){
     val email = remember { mutableStateOf("") }
     val password = remember { mutableStateOf("") }
     var showPassword by remember { mutableStateOf(false) }
+    var rememberMe by remember { mutableStateOf(false) }
 
     val loginResult = authVm.loginResult.observeAsState()
+    val isLoading = authVm.isLoading.observeAsState()
 
     loginResult.value?.let {result ->
         if (result.isSuccess) {
             val user = result.getOrNull()
-            navController.navigate("dashboard/${user?.userId}")
+            Toast.makeText(context, "Welcome back, ${user?.userName}!", Toast.LENGTH_SHORT).show()
+            navController.navigate("dashboard/${user?.userId}"){
+                popUpTo(JOIN_US) { inclusive = true }
+            }
         } else {
-            Toast.makeText(context, "Login failed",
-                Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, result.exceptionOrNull()?.message ?: "Login failed",
+                Toast.LENGTH_LONG).show()
         }
     }
 
@@ -221,8 +230,8 @@ fun LoginContent(navController: NavController){
                 .padding(horizontal = 18.dp),
         ){
             Checkbox(
-                checked = false,
-                onCheckedChange = null
+                checked = rememberMe,
+                onCheckedChange = { rememberMe = it }
             )
             Text(
                 text = "Remember me",
@@ -255,17 +264,25 @@ fun LoginContent(navController: NavController){
             colors = ButtonDefaults.buttonColors(
                 containerColor = Color(0xFF2196F3)
             ),
+            enabled = isLoading.value != true,
             onClick = {
                 authVm.login(email.value, password.value)
             }
         ) {
-            Text(
-                text = "Log In",
-                fontSize = 18.sp,
-                fontWeight = FontWeight.SemiBold,
-                modifier = Modifier
-                    .padding(PaddingValues(vertical = 6.dp, horizontal = 10.dp))
-            )
+            if(isLoading.value == true){
+                CircularProgressIndicator(
+                    color = Color.White,
+                    modifier = Modifier.padding(8.dp),
+                )
+            }else{
+                Text(
+                    text = "Log In",
+                    fontSize = 18.sp,
+                    fontWeight = FontWeight.SemiBold,
+                    modifier = Modifier
+                        .padding(PaddingValues(vertical = 6.dp, horizontal = 10.dp))
+                )
+            }
         }
 
 
@@ -308,6 +325,7 @@ fun RegisterContent(navController: NavController){
     var showPassword by remember { mutableStateOf(false) }
 
     val registerResult = authVm.registerResult.observeAsState()
+    val isLoading = authVm.isLoading.observeAsState()
 
     LaunchedEffect(registerResult) {
         registerResult.value?.let { result ->
@@ -315,14 +333,17 @@ fun RegisterContent(navController: NavController){
                 val userId = result.getOrNull()
                 Toast.makeText(
                     context,
-                    "Registration successful! User ID: ${result.getOrNull()}",
-                    Toast.LENGTH_SHORT
+                    "Registration successful! Now you can log in",
+                    Toast.LENGTH_LONG
                 ).show()
-                navController.navigate(LOGIN)
+                username.value = ""
+                email.value = ""
+                password.value = ""
+
             } else {
                 Toast.makeText(
                     context,
-                    "Registration failed: ${result.exceptionOrNull()?.message}",
+                    result.exceptionOrNull()?.message ?: "Registration failed",
                     Toast.LENGTH_SHORT
                 ).show()
             }
@@ -376,6 +397,7 @@ fun RegisterContent(navController: NavController){
                     shape = RoundedCornerShape(25.dp)
                 ),
             singleLine = true,
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
             trailingIcon = {
                 Icon(
                 Icons.Outlined.Mail,
@@ -436,7 +458,13 @@ fun RegisterContent(navController: NavController){
             colors = ButtonDefaults.buttonColors(
                 containerColor = Color(0xFF2196F3)
             ),
-            onClick = {}
+            onClick = {
+                authVm.register(
+                    userName = username.value,
+                    email = email.value,
+                    password = password.value
+                )
+            }
         ) {
             Text(
                 text = "Sign Up",

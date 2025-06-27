@@ -26,6 +26,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
@@ -211,6 +212,20 @@ fun ProfileScreen(navController: NavController, userId: Long? = null){
             }
 
             Spacer(modifier = Modifier.weight(1f))
+
+            TextButton(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 70.dp, vertical = 8.dp),
+                onClick = {  }
+            ) {
+                Text(
+                    text = "Logout",
+                    fontSize = 20.sp,
+                    fontWeight = FontWeight.ExtraBold,
+                    color = Color(0xFF7D5260)
+                )
+            }
 
         }
 
