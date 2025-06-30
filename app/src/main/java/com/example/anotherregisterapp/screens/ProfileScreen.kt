@@ -50,15 +50,17 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.anotherregisterapp.R
+import com.example.anotherregisterapp.Routes.JOIN_US
 import com.example.anotherregisterapp.database.User
 import com.example.anotherregisterapp.database.UserDatabase
 import com.example.anotherregisterapp.database.UserRepository
 import com.example.anotherregisterapp.database.viewModels.AuthViewModel
 import com.example.anotherregisterapp.database.viewModels.UserManager
+import com.example.anotherregisterapp.database.viewModels.UserManager.currentUser
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ProfileScreen(navController: NavController, userId: Long? = null){
+fun ProfileScreen(navController: NavController){
 
     val context = LocalContext.current.applicationContext
     val dao = UserDatabase.getInstance(context.applicationContext).userDao()
@@ -69,12 +71,6 @@ fun ProfileScreen(navController: NavController, userId: Long? = null){
     )
 
     val currentUser = UserManager.currentUser
-
-    LaunchedEffect(userId) {
-        userId?.let {
-            authVm.getUserById(it)
-        }
-    }
 
 
     Scaffold(
@@ -212,19 +208,22 @@ fun ProfileScreen(navController: NavController, userId: Long? = null){
                 )
             }
 
-            Spacer(modifier = Modifier.weight(1f))
+            Spacer(modifier = Modifier.height(16.dp))
 
             TextButton(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 70.dp, vertical = 8.dp),
-                onClick = {  }
+                onClick = {
+                    UserManager.clearCurrentUser()
+                    navController.navigate(JOIN_US) {popUpTo(0)}
+                }
             ) {
                 Text(
                     text = "Logout",
                     fontSize = 20.sp,
                     fontWeight = FontWeight.ExtraBold,
-                    color = Color(0xFF7D5260)
+                    color = Color(0xFF730F31)
                 )
             }
 

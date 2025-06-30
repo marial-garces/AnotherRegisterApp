@@ -54,7 +54,7 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.anotherregisterapp.R
-import com.example.anotherregisterapp.Routes.LOGIN
+import com.example.anotherregisterapp.Routes.JOIN_US
 import com.example.anotherregisterapp.database.UserDatabase
 import com.example.anotherregisterapp.database.UserRepository
 import com.example.anotherregisterapp.database.viewModels.AuthViewModel
@@ -170,9 +170,9 @@ fun LoginContent(navController: NavController){
                 )
             },
             colors = TextFieldDefaults.colors(
-                focusedContainerColor = Color(0xFFF5F5F5),
-                unfocusedContainerColor = Color(0xFFF5F5F5),
-                disabledContainerColor = Color(0xFFF5F5F5),
+                focusedContainerColor = Color.White,
+                unfocusedContainerColor = Color.White,
+                disabledContainerColor = Color.White,
                 focusedIndicatorColor = Color.Transparent,
                 unfocusedIndicatorColor = Color.Transparent,
                 disabledIndicatorColor = Color.Transparent,
@@ -205,9 +205,9 @@ fun LoginContent(navController: NavController){
                 }
             },
             colors = TextFieldDefaults.colors(
-                focusedContainerColor = Color(0xFFF5F5F5),
-                unfocusedContainerColor = Color(0xFFF5F5F5),
-                disabledContainerColor = Color(0xFFF5F5F5),
+                focusedContainerColor = Color.White,
+                unfocusedContainerColor = Color.White,
+                disabledContainerColor = Color.White,
                 focusedIndicatorColor = Color.Transparent,
                 unfocusedIndicatorColor = Color.Transparent,
                 disabledIndicatorColor = Color.Transparent,
@@ -318,7 +318,7 @@ fun RegisterContent(navController: NavController){
                     "Registration successful! User ID: ${result.getOrNull()}",
                     Toast.LENGTH_SHORT
                 ).show()
-                navController.navigate(LOGIN)
+                navController.navigate(JOIN_US)
             } else {
                 Toast.makeText(
                     context,

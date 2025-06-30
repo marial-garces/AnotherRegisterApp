@@ -35,6 +35,7 @@ import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalDrawerSheet
 import androidx.compose.material3.ModalNavigationDrawer
@@ -98,7 +99,7 @@ fun DashboardScreen(
 
     LaunchedEffect(userId) {
         userId?.let {
-            authVm.getUserById(it)
+            authVm.loadById(it)
         }
     }
 
@@ -130,6 +131,7 @@ fun DashboardScreen(
                             }
                         }
                     },
+                    navController = navController
                 )
             },
             containerColor = Color(0xFF2196F3),
@@ -330,7 +332,8 @@ fun DrawerMenuItem(
 fun TopBar(
     onOpenDrawer: () -> Unit,
     scrollBehavior: TopAppBarScrollBehavior,
-    userName: String = "UserName"
+    userName: String = "UserName",
+    navController: NavController
 ) {
 
     TopAppBar(
@@ -353,7 +356,7 @@ fun TopBar(
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(top = 12.dp),
+                    .padding(top = 2.dp, bottom = 2.dp),
             ) {
                 Text(
                     text = "Hello, ${userName}!",
@@ -367,14 +370,18 @@ fun TopBar(
             }
         },
         actions = {
-            Icon(
-                imageVector = Icons.Default.AccountCircle,
-                contentDescription = "Account",
-                tint = Color.White,
-                modifier = Modifier
-                    .padding(start = 8.dp, end = 16.dp)
-                    .size(30.dp)
-            )
+            IconButton(
+                    modifier = Modifier
+                        .padding(start = 8.dp, end = 16.dp)
+                        .size(50.dp),
+                    onClick = { navController.navigate(PROFILE) }
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.AccountCircle,
+                        contentDescription = "Account",
+                        tint = Color.White
+                    )
+                }
         }
     )
 }
